@@ -6,9 +6,14 @@ pipeline {
                 sh 'npm ci || npm install'
             }
         }
+        stage('Install Python Dependencies') {
+            steps {
+                sh 'pip3 install -r requirements.txt'
+            }
+        }
         stage('Install Playwright Browsers') {
             steps {
-                sh 'npx playwright install --with-deps'
+                sh 'npx playwright install'
             }
         }
         stage('Run Playwright Test') {
