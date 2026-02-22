@@ -25,6 +25,14 @@ pipeline {
                 sh 'npx playwright test example.spec.ts'
             }
         }
+        stage('Allure Report') {
+            steps {
+                sh '''
+                    allure generate ./allure-results --clean -o ./allure-report
+                '''
+                archiveArtifacts artifacts: 'allure-report/**', allowEmptyArchive: true
+            }
+        }
     }
     post {
         always {
